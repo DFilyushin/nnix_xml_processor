@@ -38,14 +38,17 @@ class ZipProcessor:
             filenames = zip_file.namelist()
             for filename in filenames:
                 with zip_file.open(filename) as arc_file:
-                    doc = xml.dom.minidom.parse(arc_file)
-                    uid, level, objects = ZipProcessor.get_objects_from_dom(doc)
+                    try:
+                        doc = xml.dom.minidom.parse(arc_file)
+                        uid, level, objects = ZipProcessor.get_objects_from_dom(doc)
 
-                    levels_queue.put(f'{uid},{level}')
+                        levels_queue.put(f'{uid},{level}')
 
-                    for elem in objects:
-                        object_line = f'{uid},{elem}'
-                        objects_queue.put(object_line)
+                        for elem in objects:
+                            object_line = f'{uid},{elem}'
+                            objects_queue.put(object_line)
+                    except Exception as exc:
+                        print(f'Skipped file {filename}. Details: {str(exc)}')
 
         elapsed = time.time() - start
         print(f'Processing file: {zip_filename} by {elapsed}')
