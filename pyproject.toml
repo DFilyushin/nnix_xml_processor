@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "nnix_xml_processor"
+version = "0.1.0"
+description = "Формирование и обработка файлов xml с использованием техники multiprocessing python"
+authors = ["DFilyushin <dmitriy.filyushin@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "nnix_xml_processor"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+typer = "^0.7.0"
+flake8 = "^6.0.0"
+isort = "^5.10.1"
+mypy = "^0.991"
+black = "^22.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+target-version = ['py310']
+line-length = 120
+exclude = "/migrations/"
+skip-string-normalization = true
+
